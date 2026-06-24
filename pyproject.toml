@@ -50,7 +50,7 @@ dependencies = [
 ]
 optional-dependencies.txtai = [ "txtai>=9.7" ]
 urls.Changelog = "https://github.com/xberg-io/kreuzberg-txtai/blob/main/CHANGELOG.md"
-urls.Documentation = "https://docs.kreuzberg.dev"
+urls.Documentation = "https://docs.xberg.io"
 urls.Homepage = "https://github.com/xberg-io/kreuzberg-txtai"
 urls.Issues = "https://github.com/xberg-io/kreuzberg-txtai/issues"
 urls.Kreuzberg = "https://github.com/xberg-io/kreuzberg"
