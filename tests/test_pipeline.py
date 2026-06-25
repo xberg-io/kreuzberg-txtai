@@ -1,26 +1,26 @@
-"""Tests for kreuzberg_txtai.pipeline.KreuzbergPipeline."""
+"""Tests for xberg_txtai.pipeline.XbergPipeline."""
 
 from pathlib import Path
 
 import pytest
-from kreuzberg import ExtractionConfig
+from xberg import ExtractionConfig
 
-from kreuzberg_txtai import KreuzbergPipeline
+from xberg_txtai import XbergPipeline
 
 
 @pytest.fixture
-def pipeline() -> KreuzbergPipeline:
-    return KreuzbergPipeline()
+def pipeline() -> XbergPipeline:
+    return XbergPipeline()
 
 
-def test_single_path_returns_length_one_list(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_single_path_returns_length_one_list(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     docs = pipeline(str(sample_html_path))
 
     assert isinstance(docs, list)
     assert len(docs) == 1
 
 
-def test_single_path_content_is_non_empty_string(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_single_path_content_is_non_empty_string(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     docs = pipeline(str(sample_html_path))
 
     assert isinstance(docs[0]["content"], str)
@@ -28,7 +28,7 @@ def test_single_path_content_is_non_empty_string(pipeline: KreuzbergPipeline, sa
 
 
 def test_batch_input_preserves_order_and_length(
-    pipeline: KreuzbergPipeline,
+    pipeline: XbergPipeline,
     sample_html_path: Path,
     sample_pdf_path: Path,
 ) -> None:
@@ -42,7 +42,7 @@ def test_batch_input_preserves_order_and_length(
 
 
 def test_batch_input_returns_list_even_for_single_element(
-    pipeline: KreuzbergPipeline,
+    pipeline: XbergPipeline,
     sample_html_path: Path,
 ) -> None:
     docs = pipeline([str(sample_html_path)])
@@ -51,13 +51,13 @@ def test_batch_input_returns_list_even_for_single_element(
     assert docs[0]["metadata"]["source"] == str(sample_html_path)
 
 
-def test_empty_list_returns_empty_list(pipeline: KreuzbergPipeline) -> None:
+def test_empty_list_returns_empty_list(pipeline: XbergPipeline) -> None:
     docs = pipeline([])
 
     assert docs == []
 
 
-def test_metadata_source_matches_input_path(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_metadata_source_matches_input_path(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     path = str(sample_html_path)
 
     docs = pipeline(path)
@@ -65,7 +65,7 @@ def test_metadata_source_matches_input_path(pipeline: KreuzbergPipeline, sample_
     assert docs[0]["metadata"]["source"] == path
 
 
-def test_metadata_mime_type_is_populated_for_html(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_metadata_mime_type_is_populated_for_html(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     docs = pipeline(str(sample_html_path))
 
     mime = docs[0]["metadata"]["mime_type"]
@@ -73,20 +73,20 @@ def test_metadata_mime_type_is_populated_for_html(pipeline: KreuzbergPipeline, s
     assert "html" in mime.lower()
 
 
-def test_metadata_has_stable_keys(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_metadata_has_stable_keys(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     docs = pipeline(str(sample_html_path))
 
     expected_keys = {"source", "mime_type", "title", "page_count"}
     assert set(docs[0]["metadata"].keys()) == expected_keys
 
 
-def test_pdf_page_count_matches_fixture(pipeline: KreuzbergPipeline, sample_pdf_path: Path) -> None:
+def test_pdf_page_count_matches_fixture(pipeline: XbergPipeline, sample_pdf_path: Path) -> None:
     docs = pipeline(str(sample_pdf_path))
 
     assert docs[0]["metadata"]["page_count"] == 3
 
 
-def test_pdf_title_is_populated(pipeline: KreuzbergPipeline, sample_pdf_path: Path) -> None:
+def test_pdf_title_is_populated(pipeline: XbergPipeline, sample_pdf_path: Path) -> None:
     docs = pipeline(str(sample_pdf_path))
 
     title = docs[0]["metadata"]["title"]
@@ -94,19 +94,19 @@ def test_pdf_title_is_populated(pipeline: KreuzbergPipeline, sample_pdf_path: Pa
     assert "Sample" in title
 
 
-def test_pdf_content_contains_fixture_text(pipeline: KreuzbergPipeline, sample_pdf_path: Path) -> None:
+def test_pdf_content_contains_fixture_text(pipeline: XbergPipeline, sample_pdf_path: Path) -> None:
     docs = pipeline(str(sample_pdf_path))
 
     assert "Sample PDF" in docs[0]["content"]
 
 
-def test_pdf_mime_type_is_application_pdf(pipeline: KreuzbergPipeline, sample_pdf_path: Path) -> None:
+def test_pdf_mime_type_is_application_pdf(pipeline: XbergPipeline, sample_pdf_path: Path) -> None:
     docs = pipeline(str(sample_pdf_path))
 
     assert docs[0]["metadata"]["mime_type"] == "application/pdf"
 
 
-def test_docx_extracts_content(pipeline: KreuzbergPipeline, sample_docx_path: Path) -> None:
+def test_docx_extracts_content(pipeline: XbergPipeline, sample_docx_path: Path) -> None:
     docs = pipeline(str(sample_docx_path))
 
     assert "DOCX" in docs[0]["content"]
@@ -115,7 +115,7 @@ def test_docx_extracts_content(pipeline: KreuzbergPipeline, sample_docx_path: Pa
     assert "wordprocessingml" in mime or "officedocument" in mime
 
 
-def test_docx_title_is_populated(pipeline: KreuzbergPipeline, sample_docx_path: Path) -> None:
+def test_docx_title_is_populated(pipeline: XbergPipeline, sample_docx_path: Path) -> None:
     docs = pipeline(str(sample_docx_path))
 
     title = docs[0]["metadata"]["title"]
@@ -123,13 +123,13 @@ def test_docx_title_is_populated(pipeline: KreuzbergPipeline, sample_docx_path: 
     assert title == "DOCX Demo"
 
 
-def test_docx_page_count_from_metadata(pipeline: KreuzbergPipeline, sample_docx_path: Path) -> None:
+def test_docx_page_count_from_metadata(pipeline: XbergPipeline, sample_docx_path: Path) -> None:
     docs = pipeline(str(sample_docx_path))
 
     assert docs[0]["metadata"]["page_count"] == 3
 
 
-def test_html_extracts_content_as_markdown(pipeline: KreuzbergPipeline, sample_html_path: Path) -> None:
+def test_html_extracts_content_as_markdown(pipeline: XbergPipeline, sample_html_path: Path) -> None:
     docs = pipeline(str(sample_html_path))
 
     content = docs[0]["content"]
@@ -137,7 +137,7 @@ def test_html_extracts_content_as_markdown(pipeline: KreuzbergPipeline, sample_h
     assert docs[0]["metadata"]["title"] == "Sample HTML Document"
 
 
-def test_txt_extracts_plain_content(pipeline: KreuzbergPipeline, sample_txt_path: Path) -> None:
+def test_txt_extracts_plain_content(pipeline: XbergPipeline, sample_txt_path: Path) -> None:
     docs = pipeline(str(sample_txt_path))
 
     content = docs[0]["content"]
@@ -149,21 +149,21 @@ def test_txt_extracts_plain_content(pipeline: KreuzbergPipeline, sample_txt_path
 
 
 def test_default_constructor_leaves_config_none() -> None:
-    pipe = KreuzbergPipeline()
+    pipe = XbergPipeline()
 
     assert pipe._config is None
 
 
 def test_config_is_stored_verbatim() -> None:
     override = ExtractionConfig(output_format="plain")
-    pipe = KreuzbergPipeline(config=override)
+    pipe = XbergPipeline(config=override)
 
     assert pipe._config is override
 
 
 def test_config_drives_extraction_output_format(sample_html_path: Path) -> None:
-    plain = KreuzbergPipeline(config=ExtractionConfig(output_format="plain"))
-    markdown = KreuzbergPipeline(config=ExtractionConfig(output_format="markdown"))
+    plain = XbergPipeline(config=ExtractionConfig(output_format="plain"))
+    markdown = XbergPipeline(config=ExtractionConfig(output_format="markdown"))
 
     plain_content = plain(str(sample_html_path))[0]["content"]
     markdown_content = markdown(str(sample_html_path))[0]["content"]

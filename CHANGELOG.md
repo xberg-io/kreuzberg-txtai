@@ -10,11 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-04-14
 
 ### Added
-- `KreuzbergPipeline` class — a plain callable that turns document paths into
+- `XbergPipeline` class — a plain callable that turns document paths into
   `list[dict]` with `content` and `metadata` fields (source, MIME type, title,
   page count).
 - Support for single-path and batch (`list[str]`) inputs.
-- Single `config` constructor parameter accepting a full Kreuzberg
+- Single `config` constructor parameter accepting a full Xberg
   `ExtractionConfig` for output format, OCR, and every other knob.
 - Optional `txtai` extra for consumers who want to wire the output into
   `Embeddings.index` or `Task(pipe)` workflows.

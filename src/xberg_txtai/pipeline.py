@@ -1,8 +1,8 @@
-"""Kreuzberg-backed document extraction pipeline."""
+"""Xberg-backed document extraction pipeline."""
 
 from typing import TypedDict
 
-from kreuzberg import ExtractionConfig, extract_file_sync
+from xberg import ExtractionConfig, extract_file_sync
 
 
 class DocumentMetadata(TypedDict):
@@ -21,8 +21,8 @@ class ExtractionDocument(TypedDict):
     metadata: DocumentMetadata
 
 
-class KreuzbergPipeline:
-    """Kreuzberg-backed document extraction pipeline.
+class XbergPipeline:
+    """Xberg-backed document extraction pipeline.
 
     A plain callable class that accepts one or more document paths and
     returns structured extraction results suitable for any downstream
@@ -34,22 +34,22 @@ class KreuzbergPipeline:
         """Initialize the pipeline.
 
         Args:
-            config: A Kreuzberg ``ExtractionConfig``. Pass one to control
+            config: A Xberg ``ExtractionConfig``. Pass one to control
                 output format, OCR backend and language, ``force_ocr``, and
-                every other Kreuzberg knob — they are all fields on
+                every other Xberg knob — they are all fields on
                 ``ExtractionConfig`` (OCR settings live on the nested
-                ``OcrConfig``). When omitted, Kreuzberg's defaults apply.
+                ``OcrConfig``). When omitted, Xberg's defaults apply.
 
                 Example::
 
-                    from kreuzberg import ExtractionConfig, OcrConfig
+                    from xberg import ExtractionConfig, OcrConfig
 
                     config = ExtractionConfig(
                         output_format="markdown",
                         ocr=OcrConfig(backend="tesseract", language="eng"),
                         force_ocr=True,
                     )
-                    pipeline = KreuzbergPipeline(config=config)
+                    pipeline = XbergPipeline(config=config)
 
         """
         self._config = config

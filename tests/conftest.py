@@ -1,4 +1,4 @@
-"""Shared test fixtures for kreuzberg-txtai."""
+"""Shared test fixtures for xberg-txtai."""
 
 from pathlib import Path
 

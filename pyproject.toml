@@ -3,16 +3,16 @@ build-backend = "hatchling.build"
 requires = [ "hatchling" ]
 
 [project]
-name = "kreuzberg-txtai"
+name = "xberg-txtai"
 version = "0.1.0"
-description = "Kreuzberg document extraction pipeline for txtai and other callable-based frameworks"
+description = "Xberg document extraction pipeline for txtai and other callable-based frameworks"
 readme = "README.md"
 keywords = [
   "ai",
   "document-extraction",
   "document-intelligence",
   "embeddings",
-  "kreuzberg",
+  "xberg",
   "llm",
   "nlp",
   "ocr",
@@ -26,7 +26,7 @@ maintainers = [
   { name = "Na'aman Hirschfeld", email = "naaman@xberg.io" },
   { name = "Varun Tandon", email = "varun@xberg.io" },
 ]
-authors = [ { name = "Kreuzberg.dev", email = "contact@xberg.io" } ]
+authors = [ { name = "Xberg.dev", email = "contact@xberg.io" } ]
 requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -46,14 +46,14 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "kreuzberg>=4.8",
+  "xberg>=1.0.0",
 ]
 optional-dependencies.txtai = [ "txtai>=9.7" ]
 urls.Changelog = "https://github.com/xberg-io/xberg-txtai/blob/main/CHANGELOG.md"
 urls.Documentation = "https://docs.xberg.io"
 urls.Homepage = "https://github.com/xberg-io/xberg-txtai"
 urls.Issues = "https://github.com/xberg-io/xberg-txtai/issues"
-urls.Kreuzberg = "https://github.com/xberg-io/kreuzberg"
+urls.Xberg = "https://github.com/xberg-io/xberg"
 urls.Repository = "https://github.com/xberg-io/xberg-txtai"
 
 [dependency-groups]
@@ -67,13 +67,13 @@ dev = [
 
 [tool.hatch]
 build.targets.sdist.include = [
-  "src/kreuzberg_txtai",
+  "src/xberg_txtai",
   "CHANGELOG.md",
   "LICENSE",
   "README.md",
   "pyproject.toml",
 ]
-build.targets.wheel.packages = [ "src/kreuzberg_txtai" ]
+build.targets.wheel.packages = [ "src/xberg_txtai" ]
 
 [tool.ruff]
 target-version = "py310"
@@ -113,9 +113,9 @@ strict = true
 [tool.pytest]
 ini_options.testpaths = [ "tests" ]
 ini_options.markers = [
-  "slow: marks tests that hit the OCR path or other slow Kreuzberg backends",
+  "slow: marks tests that hit the OCR path or other slow Xberg backends",
 ]
 
 [tool.coverage]
-run.source = [ "kreuzberg_txtai" ]
+run.source = [ "xberg_txtai" ]
 report.fail_under = 80
